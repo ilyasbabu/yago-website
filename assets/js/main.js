@@ -200,10 +200,14 @@ function initBookingTabs() {
       const date = document.getElementById('bookDate')?.value || '';
       const travelers = document.getElementById('bookTravelers')?.value || '1';
 
-      // Open WhatsApp with prefilled message
-      const text = `Hello Yaago Global! I would like to book/enquire about ${service.toUpperCase()}.\nOrigin/Details: ${origin}\nDestination: ${dest}\nDate: ${date}\nTravelers: ${travelers}`;
-      const encoded = encodeURIComponent(text);
-      window.open(`https://wa.me/918848144260?text=${encoded}`, '_blank');
+      // Open WhatsApp desk selector with prefilled booking message
+      const text = `Hello Yaago Global! I would like to book/enquire about ${service.toUpperCase()}.\n• Origin: ${origin}\n• Destination: ${dest}\n• Travel Date: ${date}\n• Travelers: ${travelers}`;
+      if (typeof window.openWhatsAppDeskSelector === 'function') {
+        window.openWhatsAppDeskSelector(text);
+      } else {
+        const encoded = encodeURIComponent(text);
+        window.open(`https://wa.me/971508921234?text=${encoded}`, '_blank');
+      }
     });
   }
 }
@@ -439,7 +443,8 @@ function initServicesHub() {
           }
 
           if (whatsappBtn) {
-            whatsappBtn.href = `https://wa.me/918848144260?text=${encodeURIComponent(data.whatsappMsg)}`;
+            whatsappBtn.href = '#whatsappModal';
+            whatsappBtn.setAttribute('data-wa-msg', data.whatsappMsg);
           }
 
           if (quoteBtn) {
@@ -497,6 +502,7 @@ function initStatsCounter() {
 
   const countUp = (counter) => {
     const target = +counter.getAttribute('data-target');
+    const suffix = counter.getAttribute('data-suffix') || '';
     const duration = 1600;
     const step = target / (duration / 25);
     let current = 0;
@@ -504,10 +510,10 @@ function initStatsCounter() {
     const update = () => {
       current += step;
       if (current < target) {
-        counter.textContent = Math.ceil(current).toLocaleString();
+        counter.textContent = Math.ceil(current).toLocaleString() + suffix;
         setTimeout(update, 25);
       } else {
-        counter.textContent = target.toLocaleString();
+        counter.textContent = target.toLocaleString() + suffix;
       }
     };
     update();
@@ -554,14 +560,86 @@ function initScrollTop() {
 }
 
 /* ==========================================================================
-   10. Modals & Quick Dialogs
+   10. Modals & Quick Dialogs (Call, Quote & Advanced Dual-Desk WhatsApp)
    ========================================================================== */
+const WA_REGIONAL_DESKS = {
+  uae: {
+    phone: '971508921234',
+    name: 'Yaago UAE / Dubai Concierge Desk'
+  },
+  india: {
+    phone: '918848144260',
+    name: 'Yaago India Corporate HQ'
+  }
+};
+
 function initModals() {
   const quoteModal = document.getElementById('quoteModal');
   const callModal = document.getElementById('callModal');
+  const whatsappModal = document.getElementById('whatsappModal');
   const quoteTriggers = document.querySelectorAll('.open-quote-modal');
   const callTrigger = document.querySelector('.floating-btn-call');
   const closeBtns = document.querySelectorAll('.modal-close-btn');
+
+  const waBtnUae = document.getElementById('waBtnUae');
+  const waBtnIndia = document.getElementById('waBtnIndia');
+  const waPreview = document.getElementById('waInquiryPreview');
+  const waPreviewText = document.getElementById('waInquiryPreviewText');
+  const defaultWaMsg = 'Hello Yaago Global! I would like to enquire about your travel services.';
+  let currentWaMsg = defaultWaMsg;
+
+  // Open & Configure WhatsApp Desk Selector Modal
+  window.openWhatsAppDeskSelector = function(customMessage) {
+    currentWaMsg = (customMessage && customMessage.trim()) ? customMessage.trim() : defaultWaMsg;
+    const encoded = encodeURIComponent(currentWaMsg);
+
+    if (waBtnUae) {
+      waBtnUae.href = `https://wa.me/${WA_REGIONAL_DESKS.uae.phone}?text=${encoded}`;
+    }
+    if (waBtnIndia) {
+      waBtnIndia.href = `https://wa.me/${WA_REGIONAL_DESKS.india.phone}?text=${encoded}`;
+    }
+
+    if (waPreview && waPreviewText) {
+      if (currentWaMsg && currentWaMsg !== defaultWaMsg) {
+        waPreviewText.textContent = currentWaMsg;
+        waPreview.style.display = 'block';
+      } else {
+        waPreview.style.display = 'none';
+      }
+    }
+
+    if (whatsappModal) {
+      whatsappModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  // Bind All WhatsApp Selector Triggers Across Website
+  const waTriggers = document.querySelectorAll('.open-whatsapp-modal');
+  waTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const msg = trigger.getAttribute('data-wa-msg');
+      window.openWhatsAppDeskSelector(msg);
+    });
+  });
+
+  // Track Clicks on Desk Cards inside WhatsApp Modal
+  [waBtnUae, waBtnIndia].forEach((btn) => {
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const desk = btn.getAttribute('data-desk') || 'uae';
+      const deskInfo = WA_REGIONAL_DESKS[desk] || WA_REGIONAL_DESKS.uae;
+      showNotification(`Opening WhatsApp with ${deskInfo.name}...`, 'success');
+      setTimeout(() => {
+        if (whatsappModal) {
+          whatsappModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      }, 500);
+    });
+  });
 
   // Open Quote Modal
   quoteTriggers.forEach((trigger) => {
@@ -596,12 +674,13 @@ function initModals() {
     btn.addEventListener('click', () => {
       if (quoteModal) quoteModal.classList.remove('active');
       if (callModal) callModal.classList.remove('active');
+      if (whatsappModal) whatsappModal.classList.remove('active');
       document.body.style.overflow = '';
     });
   });
 
   // Close on backdrop
-  [quoteModal, callModal].forEach((modal) => {
+  [quoteModal, callModal, whatsappModal].forEach((modal) => {
     if (!modal) return;
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -611,21 +690,38 @@ function initModals() {
     });
   });
 
+  // Close on Escape Key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (quoteModal) quoteModal.classList.remove('active');
       if (callModal) callModal.classList.remove('active');
+      if (whatsappModal) whatsappModal.classList.remove('active');
       document.body.style.overflow = '';
     }
   });
 }
 
 /* ==========================================================================
-   11. Contact & Inquiry Form Submissions (Instant WhatsApp Dispatch)
+   11. Contact & Inquiry Form Submissions (Instant WhatsApp Dispatch with Desk Routing)
    ========================================================================== */
 function initContactForms() {
   const mainForm = document.getElementById('mainInquiryForm');
   const modalForm = document.getElementById('modalQuoteForm');
+
+  // Radio button visual sync for desk selector cards
+  const deskRadios = document.querySelectorAll('.desk-select-card input[type="radio"]');
+  deskRadios.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      const container = radio.closest('.desk-select-grid');
+      if (container) {
+        container.querySelectorAll('.desk-select-card').forEach((card) => {
+          card.classList.remove('active');
+        });
+        const parentCard = radio.closest('.desk-select-card');
+        if (parentCard) parentCard.classList.add('active');
+      }
+    });
+  });
 
   if (mainForm) {
     mainForm.addEventListener('submit', (e) => {
@@ -635,10 +731,13 @@ function initContactForms() {
       const email = document.getElementById('formEmail')?.value.trim() || '';
       const service = document.getElementById('formService')?.value || 'General Inquiry';
       const message = document.getElementById('formMessage')?.value.trim() || '';
+      const deskChoice = mainForm.querySelector('input[name="formPreferredDesk"]:checked')?.value || 'uae';
+      const targetDesk = WA_REGIONAL_DESKS[deskChoice] || WA_REGIONAL_DESKS.uae;
 
       const lines = [
         '*New Travel Inquiry - Yaago Global*',
         '-----------------------------------',
+        `*Preferred Desk:* ${targetDesk.name}`,
         `*Service:* ${service}`,
         `*Name:* ${name}`,
         `*Phone:* ${phone}`
@@ -648,13 +747,13 @@ function initContactForms() {
       lines.push(message || 'Please contact me with quotation and options.');
 
       const text = lines.join('\n');
-      const waUrl = `https://wa.me/918848144260?text=${encodeURIComponent(text)}`;
+      const waUrl = `https://wa.me/${targetDesk.phone}?text=${encodeURIComponent(text)}`;
 
-      showNotification('Thank you! Connecting you to our travel desk...', 'success');
+      showNotification(`Thank you! Connecting you to ${targetDesk.name} on WhatsApp...`, 'success');
       setTimeout(() => {
         window.open(waUrl, '_blank');
         mainForm.reset();
-      }, 300);
+      }, 400);
     });
   }
 
@@ -665,10 +764,13 @@ function initContactForms() {
       const phone = document.getElementById('quotePhone')?.value.trim() || '';
       const service = document.getElementById('quoteServiceSelect')?.value || 'Travel Quotation';
       const message = document.getElementById('quoteMessage')?.value.trim() || '';
+      const deskChoice = modalForm.querySelector('input[name="quotePreferredDesk"]:checked')?.value || 'uae';
+      const targetDesk = WA_REGIONAL_DESKS[deskChoice] || WA_REGIONAL_DESKS.uae;
 
       const lines = [
         '*Quotation Request - Yaago Global*',
         '----------------------------------',
+        `*Preferred Desk:* ${targetDesk.name}`,
         `*Service:* ${service}`,
         `*Name:* ${name}`,
         `*Phone:* ${phone}`,
@@ -677,9 +779,9 @@ function initContactForms() {
       ];
 
       const text = lines.join('\n');
-      const waUrl = `https://wa.me/918848144260?text=${encodeURIComponent(text)}`;
+      const waUrl = `https://wa.me/${targetDesk.phone}?text=${encodeURIComponent(text)}`;
 
-      showNotification('Thank you! Connecting you to our travel desk...', 'success');
+      showNotification(`Thank you! Connecting you to ${targetDesk.name} on WhatsApp...`, 'success');
 
       const modal = modalForm.closest('.modal-overlay');
       setTimeout(() => {
@@ -689,7 +791,7 @@ function initContactForms() {
           modal.classList.remove('active');
           document.body.style.overflow = '';
         }
-      }, 400);
+      }, 450);
     });
   }
 }
