@@ -206,7 +206,7 @@ function initBookingTabs() {
         window.openWhatsAppDeskSelector(text);
       } else {
         const encoded = encodeURIComponent(text);
-        window.open(`https://wa.me/971508921234?text=${encoded}`, '_blank');
+        window.open(`https://wa.me/971502253260?text=${encoded}`, '_blank');
       }
     });
   }
@@ -355,6 +355,20 @@ const servicesData = {
       'Experienced religious guides throughout the journey'
     ],
     whatsappMsg: 'Hello Yaago Global! I am enquiring about Umrah pilgrimage packages.'
+  },
+  'medical-travel': {
+    title: 'Medical Travel & Healthcare Coordination',
+    tag: 'Healthcare Journeys',
+    badge: 'Specialized Care',
+    img: 'assets/images/service-insurance.jpg',
+    desc: 'Compassionate travel coordination for clients travelling to India for medical treatment and advanced healthcare. We arrange suitable accommodation near premier hospitals, flight bookings, patient transfers, and dedicated local ground support.',
+    features: [
+      'Travel coordination for medical treatment in India',
+      'Accommodation near accredited hospital networks',
+      'Comfortable airport transfers & local ground transit',
+      'Dedicated support for patients and accompanying families'
+    ],
+    whatsappMsg: 'Hello Yaago Global! I would like to enquire about Medical Travel to India.'
   }
 };
 
@@ -564,8 +578,8 @@ function initScrollTop() {
    ========================================================================== */
 const WA_REGIONAL_DESKS = {
   uae: {
-    phone: '971508921234',
-    name: 'Yaago UAE / Dubai Concierge Desk'
+    phone: '971502253260',
+    name: 'Yaago UAE / Abu Dhabi Office'
   },
   india: {
     phone: '918848144260',

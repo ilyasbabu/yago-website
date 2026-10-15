@@ -1282,6 +1282,280 @@ button {
 }
 
 /* ==========================================================================
+   Business Travel & Industry Travel Solutions (Corporate Section)
+   ========================================================================== */
+.corporate-section {
+  padding: 100px 0;
+  background: #f8fafc;
+  position: relative;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.corporate-dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: stretch;
+}
+
+.corp-feature-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.corp-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(200, 155, 60, 0.4);
+}
+
+.corp-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+}
+
+.corp-feature-card.industry-card::before {
+  background: var(--gold-gradient);
+}
+
+.corp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.corp-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--primary-gradient);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(88, 28, 63, 0.25);
+}
+
+.corp-icon-box.gold {
+  background: var(--gold-gradient);
+  color: #1a1202;
+  box-shadow: 0 4px 12px rgba(200, 155, 60, 0.3);
+}
+
+.corp-eyebrow {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--gold-dark);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.corp-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.corp-desc {
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.corp-support-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 26px;
+  flex-grow: 1;
+}
+
+.corp-support-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: #fbfcfe;
+  border: 1px solid #edf2f7;
+  transition: all var(--transition-fast);
+}
+
+.corp-support-item:hover {
+  background: #f8fafc;
+  border-color: var(--border-color);
+  transform: translateX(4px);
+}
+
+.corp-support-item i {
+  color: var(--primary);
+  font-size: 1.1rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.corp-support-item div strong {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.corp-support-item div span {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.corp-point-box {
+  background: rgba(88, 28, 63, 0.04);
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-top: auto;
+}
+
+.corp-point-box h4 {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.corp-point-box h4 i {
+  color: var(--primary);
+}
+
+.corp-point-box p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.industry-sectors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 26px;
+  flex-grow: 1;
+}
+
+.sector-card {
+  background: #fbfcfe;
+  border: 1px solid #edf2f7;
+  border-radius: var(--radius-md);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all var(--transition-fast);
+}
+
+.sector-card:hover {
+  background: #ffffff;
+  border-color: var(--gold);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-3px);
+}
+
+.sector-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(200, 155, 60, 0.12);
+  color: var(--gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.sector-text h4 {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.sector-text p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.corp-role-box {
+  background: #fdfaf5;
+  border: 1px solid rgba(200, 155, 60, 0.3);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-top: auto;
+}
+
+.corp-role-box .role-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  color: #1a1202;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.corp-role-box .role-text strong {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #1a1202;
+  margin-bottom: 3px;
+}
+
+.corp-role-box .role-text p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
    20+ Years Trust & About Section
    ========================================================================== */
 .about-section {
@@ -1355,11 +1629,53 @@ button {
   border-left: 4px solid var(--primary);
   padding: 18px 22px;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   font-style: italic;
   font-size: 1.05rem;
   color: var(--primary-dark);
   font-weight: 600;
+}
+
+.about-approach-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 22px;
+  background: #fdfaf6;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 18px 0 22px;
+  border: 1px solid rgba(200, 155, 60, 0.2);
+  border-left-width: 4px;
+}
+
+.about-approach-card .approach-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  color: #1a1202;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(200, 155, 60, 0.25);
+}
+
+.about-approach-card strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.about-approach-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
 }
 
 .about-pillars-grid {
@@ -1401,125 +1717,87 @@ button {
   line-height: 1.45;
 }
 
-/* Managing Director Spotlight */
-.md-spotlight-card {
-  margin-top: 50px;
-  background: linear-gradient(135deg, #ffffff 0%, #fcfbf9 100%);
-  border: 1px solid rgba(200, 155, 60, 0.3);
-  border-radius: var(--radius-xl);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
-  padding: 38px 42px;
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 36px;
-  align-items: center;
+.about-promise-box {
+  background: linear-gradient(135deg, #3d0c26 0%, #1a0410 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: var(--radius-md);
+  padding: 24px 26px;
+  color: #ffffff;
+  margin-top: 26px;
+  box-shadow: 0 10px 25px rgba(26, 4, 16, 0.25);
   position: relative;
   overflow: hidden;
 }
 
-.md-spotlight-card::before {
+.about-promise-box::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: var(--gold-gradient);
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-.md-portrait-wrap {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  border: 3px solid #ffffff;
-  background: #f1ede6;
+.promise-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
 }
 
-.md-portrait-wrap img {
-  width: 100%;
-  height: 310px;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
-}
-
-.md-badge-pill {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
-  background: rgba(114, 28, 56, 0.94);
-  backdrop-filter: blur(8px);
+.promise-headline {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
   color: #ffffff;
-  padding: 8px 12px;
-  border-radius: var(--radius-md);
-  text-align: center;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  border: 1px solid rgba(200, 155, 60, 0.45);
+  margin-bottom: 14px;
 }
 
-.md-content {
+.commitment-bullets {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
 }
 
-.md-eyebrow {
-  color: var(--gold-dark);
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+.commitment-bullets span {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-}
-
-.md-quote-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.55rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.3;
-}
-
-.md-quote-body {
-  font-size: 0.96rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  font-style: italic;
-  position: relative;
-  padding-left: 20px;
-  border-left: 3px solid var(--gold);
-  margin: 4px 0 8px;
-}
-
-.md-signoff {
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-}
-
-.md-name {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.22rem;
-  font-weight: 800;
-  color: var(--wine-red);
-}
-
-.md-role {
-  font-size: 0.85rem;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: #f1f5f9;
+  letter-spacing: 0.2px;
+  transition: all var(--transition-fast);
+}
+
+.commitment-bullets span:hover {
+  background: rgba(200, 155, 60, 0.15);
+  border-color: rgba(200, 155, 60, 0.5);
+  color: #ffffff;
+}
+
+.commitment-bullets span i {
+  color: var(--gold-light);
+  font-size: 0.75rem;
 }
 
 /* Vision & Mission Section Cards */
 .vision-mission-grid {
-  margin-top: 36px;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
@@ -1608,14 +1886,6 @@ button {
 }
 
 @media (max-width: 992px) {
-  .md-spotlight-card {
-    grid-template-columns: 1fr;
-    padding: 28px 22px;
-    gap: 22px;
-  }
-  .md-portrait-wrap img {
-    height: 280px;
-  }
   .vision-mission-grid {
     grid-template-columns: 1fr;
   }
@@ -2877,6 +3147,10 @@ textarea.form-control {
     font-size: 0.88rem;
     text-align: center;
   }
+  .corporate-dual-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
   .about-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -3205,6 +3479,24 @@ textarea.form-control {
     gap: 16px;
   }
 
+  /* Corporate & Business Travel on Mobile */
+  .corporate-section {
+    padding: 55px 0;
+  }
+
+  .corp-feature-card {
+    padding: 24px 20px;
+  }
+
+  .corp-title {
+    font-size: 1.25rem;
+  }
+
+  .industry-sectors-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
   /* About Us Section on Mobile */
   .about-section {
     padding: 55px 0;
@@ -3243,10 +3535,29 @@ textarea.form-control {
     margin-bottom: 18px;
   }
 
+  .about-approach-card {
+    padding: 14px 16px;
+    margin: 14px 0 18px;
+  }
+
   .about-pillars-grid {
     grid-template-columns: 1fr;
     gap: 14px;
     margin: 18px 0 22px;
+  }
+
+  .about-promise-box {
+    padding: 18px 16px;
+    margin-top: 20px;
+  }
+
+  .promise-headline {
+    font-size: 0.92rem;
+  }
+
+  .commitment-bullets {
+    flex-direction: column;
+    gap: 7px;
   }
 
   /* Curated Destinations on Mobile */
